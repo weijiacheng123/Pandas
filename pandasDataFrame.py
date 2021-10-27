@@ -12,14 +12,14 @@ grades = pd.DataFrame(grades_dict)
 grades.index = ['Test1', 'Test2', 'Test3']
 
 print(grades)
-# print(grades.T)
+print(grades.T)
 
-# print(grades['Eva'])
-# print(grades.Sam)
+print(grades['Eva'])
+print(grades.Sam)
 
 # using loc and iloc method
-# print(grades.loc['Test2'])
-# print(grades.iloc[1])
+print(grades.loc['Test2'])
+print(grades.iloc[1])
 
 # for consecutive rows
 print(grades.loc['Test1':'Test3'])
