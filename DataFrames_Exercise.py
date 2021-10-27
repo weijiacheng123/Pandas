@@ -41,8 +41,8 @@ produce_dictionary = {'Potatoes': [0.86, 12219, 10508],
                       'Kale': [5.02, 12293, 61711],
                       'Bok choy': [1.42, 11565, 16422]}
 
-product = pd.DataFrame(produce_dictionary)
-product.index = ['Cost Per Pound', 'Quantity Sold', 'Total Sale']
+product = pd.DataFrame(produce_dictionary, index=['Cost Per Pound', 'Quantity Sold', 'Total Sale'])
+product = product.T
 print(product)
 
 
@@ -50,46 +50,49 @@ print("-----------------------------------------------   Question #1  ----------
 print("1. Produce that had the highest and lowest sales in total sales (both name of produce and value)")
 #print(product.T.describe())
 #print(product.sort_values(by='Total Sale', axis=1, ascending=False))
-print(f"The highest sales produce is {product.iloc[2].idxmax()}")
-print(f"The value is {product.iloc[2].max()}")
-print(f"The highest sales produce is {product.iloc[2].idxmin()}")
-print(f"The value is {product.iloc[2].min()}")
+print(f"The highest sales produce is {product.T.iloc[2].idxmax()}")
+print(f"The value is {product.T.iloc[2].max()}")
+print(f"The highest sales produce is {product.T.iloc[2].idxmin()}")
+print(f"The value is {product.T.iloc[2].min()}")
 
 
 print()
 print("-----------------------------------------------   Question #2  -----------------------------------------------")
 print("2. Using 'loc', display the quantity and total sales for 'Orange' and 'Beets' (together)")
-print(product.loc[['Quantity Sold','Total Sale'],['Orange','Beets']])
+print(product.T.loc[['Quantity Sold','Total Sale'],['Orange','Beets']])
 
 print()
 print("-----------------------------------------------   Question #3  -----------------------------------------------")
 print("3. Using 'loc', display the total sales for 'Apples' through 'Lettuce'")
-print(product.loc['Total Sale','Apples':'Lettuce'])
+print(product.T.loc['Total Sale','Apples':'Lettuce'])
+
 
 print()
 print("-----------------------------------------------   Question #4  -----------------------------------------------")
 print("4. Using 'at', update the quantity sold for Apricots to 11,955 and total sales to 44,353.05")
-product.at['Quantity Sold','Apricots'] = 11955
-print(f"After update, Apricots quantity sold is {product.at['Quantity Sold','Apricots']}")
-product.at['Total Sales','Apricots'] = 44353.05
-print(f"After update, Apricots total sales is {product.at['Total Sales','Apricots']}")
+product.at['Apricots','Quantity Sold'] = 11955
+print(f"After update, Apricots quantity sold is {product.at['Apricots','Quantity Sold']}")
+product.at['Apricots','Total Sale'] = 44353.05
+print(f"After update, Apricots total sales is {product.at['Apricots','Total Sale']}")
 
 
 print()
 print("-----------------------------------------------   Question #5  -----------------------------------------------")
 print("5. What is the average quantity sold across all products? (print out ONLY quantity sold)")
-print(product.loc['Quantity Sold'].mean())
+print(product.T.loc['Quantity Sold'].mean())
+
+
 
 print()
 print("-----------------------------------------------   Question #6  -----------------------------------------------")
 print("6. Create a new dataframe for only those produce that have sold between 11,500 to 12,000 (quantity)")
-#product1 = [(product.loc['Quantity Sold'] >= 11500) & (product.loc['Quantity Sold'] <= 12000)]
-#product1 = [(product.loc['Quantity Sold'].sort_values(ascending=False) >= 11500) & (product.loc['Quantity Sold'].sort_values(ascending=False) <= 12000)]
+product1 = product[(product['Quantity Sold'] >= 11500) & (product['Quantity Sold'] <= 12000)]
 print(product1)
+
 
 print()
 print("-----------------------------------------------   Question #7  -----------------------------------------------")
 print("7. What is the total sales for the products in the above new dataframe? (print out ONLY total sales)")
-
+print(product1['Total Sale'].sum())
 
 print()
